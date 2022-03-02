@@ -1,3 +1,4 @@
+const { json } = require('express');
 const express = require('express');
 const server = express();
 const PORT = 3000;
@@ -15,6 +16,17 @@ const friends = [{
         name: 'Moustafa'
     }
 ];
+
+//logging middle ware
+server.use((req, res, next) => {
+    const reqTime = Date.now();
+    next();
+    const resTime = Date.now();
+    console.log(`${req.method} ${req.url} it takes ${resTime - reqTime} ms`);
+
+});
+
+server.use(express.json())
 
 server.get('/', (req, res) => {
     res.send(`<h1>Welcome to Express Server</h1>`)
@@ -35,6 +47,23 @@ server.get('/friends/:friendID', (req, res) => {
         });
     }
 });
+
+server.post('/friends', (req, res) => {
+    if (!req.body.name) {
+        return res.status(400).json({
+            'Error': 'name was missed'
+        });
+    }
+
+    let newFriend = {
+        name: req.body.name,
+        id: friends.length
+    };
+
+    friends.push(newFriend);
+
+    res.json(newFriend);
+})
 
 server.listen(PORT, () => {
     console.log(`Server Running on Port ${PORT}`);
