@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 const functions = {
 	add: (a, b) => a + b,
 	isNull: () => null,
@@ -8,6 +10,10 @@ const functions = {
 			lastName: "Safan",
 		};
 		return user;
+	},
+	fetchUser: async () => {
+		const res = await axios.get("https://jsonplaceholder.typicode.com/users/1");
+		return res.data;
 	},
 };
 

@@ -32,3 +32,14 @@ test("should be less than or qual 1600 kg", () => {
 test("regex test", () => {
 	expect("team").not.toMatch(/I/);
 });
+
+test("Array should contain an admin", () => {
+	const users = ["admin", "user", "guest"];
+	expect(users).toContain("admin");
+});
+
+test("user fetched name should be Leanne Graham", async () => {
+	expect.assertions(1);
+	const data = await functions.fetchUser();
+	expect(data.name).toEqual("Leanne Graham");
+});
