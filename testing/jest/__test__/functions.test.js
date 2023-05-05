@@ -43,3 +43,39 @@ test("user fetched name should be Leanne Graham", async () => {
 	const data = await functions.fetchUser();
 	expect(data.name).toEqual("Leanne Graham");
 });
+
+test("async function throws error", async () => {
+	expect.assertions(1);
+	try {
+		await functions.fetchError();
+	} catch (error) {
+		expect(error.message).toMatch("expected error message");
+	}
+});
+
+/** 
+test("create user with missing data returns 400", async () => {
+	try {
+		const response = await axios.post("https://example.com/api/users", {
+			name: "John Doe",
+		});
+	} catch (error) {
+		expect(error.response.status).toBe(400);
+	}
+});
+
+test("create user with valid data returns 201", async () => {
+	expect.assertions(2);
+	const response = await axios.post("https://example.com/api/users", {
+		name: "John Doe",
+		email: "johndoe@example.com",
+	});
+	expect(response.status).toBe(201);
+	expect(response.data).toEqual({
+		id: expect.any(Number),
+		name: "John Doe",
+		email: "johndoe@example.com",
+	});
+});
+
+*/

@@ -15,6 +15,9 @@ const functions = {
 		const res = await axios.get("https://jsonplaceholder.typicode.com/users/1");
 		return res.data;
 	},
+	fetchError: async () => {
+		throw new Error("expected error message");
+	},
 };
 
 module.exports = functions;
